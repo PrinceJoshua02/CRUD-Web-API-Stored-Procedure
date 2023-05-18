@@ -14,12 +14,18 @@ namespace CRUD_Web_API_Stored_Procedure
 
         public void CreateProduct(string productName, decimal price)
         {
-            _context.CreateProduct(productName, price);
+            // Call the Products stored procedure using FromSqlRaw
+            _context.Database.ExecuteSqlRaw("EXEC Products @ProductName, @Price",
+                new SqlParameter("@ProductName", productName),
+                new SqlParameter("@Price", price));
         }
         public Product ReadProduct(int productId)
         {
             // Call the ReadProduct stored procedure using _context.Database.FromSqlRaw or another suitable method
-            return _context.Set<Product>().FromSqlRaw("EXEC ReadProduct @ProductId", new SqlParameter("@ProductId", productId)).FirstOrDefault();
+            return _context.Set<Product>().FromSqlRaw("EXEC ReadProduct @ProductId", new SqlParameter("@ProductId", productId)).AsEnumerable().FirstOrDefault();
+            _context.Database.ExecuteSqlRaw("EXEC ReadProduct @ProductId", new SqlParameter("@ProductId", productId));
+            return _context.Set<Product>().Find(productId);
+
         }
 
 

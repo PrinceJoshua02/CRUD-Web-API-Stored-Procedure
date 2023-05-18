@@ -1,4 +1,5 @@
 ﻿using CRUD_Web_API_Stored_Procedure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -13,6 +14,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize] // Apply [Authorize] attribute to secure the endpoint
     public IActionResult Create(Product product)
     {
         _repository.CreateProduct(product.Name, product.Price);
@@ -22,8 +24,8 @@ public class ProductsController : ControllerBase
 
     // Implement other CRUD operations similarly
 
-
     [HttpGet("{id}")]
+    [Authorize] // Apply [Authorize] attribute to secure the endpoint
     public IActionResult Get(int id)
     {
         var product = _repository.ReadProduct(id);
@@ -32,6 +34,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPut]
+    [Authorize] // Apply [Authorize] attribute to secure the endpoint
     public IActionResult Update(Product product)
     {
         _repository.UpdateProduct(product);
@@ -40,6 +43,7 @@ public class ProductsController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize] // Apply [Authorize] attribute to secure the endpoint
     public IActionResult Delete(int id)
     {
         _repository.DeleteProduct(id);
@@ -47,4 +51,3 @@ public class ProductsController : ControllerBase
         // Return a success response or appropriate HTTP status code
     }
 }
-

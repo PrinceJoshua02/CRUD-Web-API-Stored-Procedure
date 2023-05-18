@@ -10,6 +10,8 @@ namespace CRUD_Web_API_Stored_Procedure
         {
         }
 
+        public DbSet<Product> Products { get; set; }
+
         // Define a method for each stored procedure
         public virtual void CreateProduct(string productName, decimal price)
         {
