@@ -1,4 +1,6 @@
-﻿namespace CRUD_Web_API_Stored_Procedure
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace CRUD_Web_API_Stored_Procedure
 {
     public class Product
     {
